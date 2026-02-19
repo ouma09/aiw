@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "banking-dispute-server": {
+      "command": "python",
+      "args": ["-m", "mcp_server.server"],
+      "cwd": ".",
+      "env": {}
+    }
+  }
+}
+
