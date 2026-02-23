@@ -16,9 +16,9 @@ MCP_SERVER_ARGS = os.getenv(
 ).split()
 
 # LLM settings — OpenRouter (OpenAI-compatible)
-LLM_MODEL = os.getenv("LLM_MODEL", "openai/gpt-oss-120b:free")
-LLM_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
-LLM_BASE_URL = os.getenv("LLM_BASE_URL", "https://openrouter.ai/api/v1")
+LLM_MODEL = os.getenv("LLM_MODEL", "llama-3.1-8b-instant")
+LLM_API_KEY = os.getenv("GROQ_API_KEY", "")
+LLM_BASE_URL = os.getenv("LLM_BASE_URL", "https://api.groq.com/openai/v1")
 LLM_TEMPERATURE = float(os.getenv("LLM_TEMPERATURE", "0.1"))
 LLM_MAX_TOKENS = int(os.getenv("LLM_MAX_TOKENS", "1024"))
 
