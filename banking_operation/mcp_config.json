@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "banking-dispute-server": {
+      "command": "python",
+      "args": [
+        "c:/Users/skhalmadani/Documents/Projects/Workbecnh_mcp/mcp_server.py"
+      ],
+      "env": {
+        "ENVIRONMENT": "development",
+        "MCP_LOG_LEVEL": "DEBUG"
+      }
+    }
+  }
+}
