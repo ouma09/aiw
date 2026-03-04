@@ -1,0 +1,31 @@
+# Git
+.git
+.gitignore
+
+# Python cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info
+dist
+build
+
+# Virtual environment — never copy into image
+.venv
+venv
+env
+
+# Secrets — never bake into image
+.env
+
+# Dev / editor
+.vscode
+.idea
+*.md
+
+# Test artefacts
+.pytest_cache
+htmlcov
+.coverage

@@ -1,0 +1,49 @@
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+  paths:
+    include:
+      - 'banking/**'
+      - 'pipelines/banking/**'
+    exclude:
+      - '**/*.md'
+
+pr: none
+
+parameters:
+  - name: minorRelease
+    type: boolean
+    default: false
+    displayName: 'Mark if minor version bump'
+
+resources:
+  repositories:
+  - repository: AI-LAUNCHPAD-PIPELINES
+    type: githubenterprise
+    endpoint: https://partner-github.dxc.com/
+    name: quercus-platform/AI-LAUNCHPAD-PIPELINES
+    ref: refs/heads/main
+
+variables:
+  - name: appDirectoryName
+    value: banking
+  - name: azureContainerRegistryRepositoryName
+    value: "mcp-banking"
+  - ${{ if StartsWith(variables['Build.SourceBranch'], 'refs/heads/main') }}:
+    - template: "./pipelines/variables/prod.yaml@AI-LAUNCHPAD-PIPELINES"
+  - ${{ if StartsWith(variables['Build.SourceBranch'], 'refs/heads/develop') }}:
+    - template: "./pipelines/variables/dev.yaml@AI-LAUNCHPAD-PIPELINES"
+
+stages:
+  # Build image once, then deploy each config separately
+  - template: "./pipelines/azuredevops/BuildAndPushImage.yaml@AI-LAUNCHPAD-PIPELINES"
+    parameters:
+      useCommitizen: true
+      minorRelease: ${{ parameters.minorRelease }}
+      containerRegistrySCNameDev: ${{ variables.azureContainerRegistryConnection }}
+      containerRepositoryName: ${{ variables.azureContainerRegistryRepositoryName }}
+      dockerfilePath: "${{ variables.appDirectoryName }}/Dockerfile"
+      customBuildContext: "/${{ variables.appDirectoryName }}"
+      buildTool: npm

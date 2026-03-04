@@ -1,0 +1,12 @@
+# Banking MCP Server + Agent — dependencies
+mcp>=1.2.0
+openai>=1.12.0
+httpx>=0.27.0
+pydantic>=2.0.0
+uvicorn>=0.27.0
+python-dotenv>=1.0.0
+langchain-core>=0.3.0
+langchain-openai>=0.2.0
+langgraph>=0.2.0
+requests>=2.31.0
+starlette>=0.36.0
