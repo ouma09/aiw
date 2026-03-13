@@ -1,0 +1,122 @@
+[project]
+name = "orchestrade"
+version = "0.1.1"
+description = "Orchestrade MCP Server - Model Context Protocol server for Orchestrade API integration"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "mcp[cli]>=1.2.0",
+    "pydantic>=2.0.0",
+    "python-dotenv>=1.0.0",
+    "requests>=2.31.0",
+    "PyYAML>=6.0.0",
+    "starlette>=0.27.0",
+]
+
+[project.scripts]
+orchestrade-mcp = "orchestrade_mcp_server.orchestrade_mcp_server:mcp.run"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/orchestrade_mcp_server"]
+
+
+[tool.commitizen]
+name = "cz_customize"
+version_scheme = "semver"
+version_provider = "uv"
+update_changelog_on_bump = false
+tag_format = "orchestrade-${version}"
+ignored_tag_formats = ["*-${version}"]
+bump_message = "release $current_version → $new_version [skip ci]"
+changelog_incremental = false
+ignore_rev = "^(?!(feat|fix|docs|style|refactor|perf|test|chore|build|revert)\\(orchestrade\\):).*$"
+
+[tool.commitizen.customize]
+message_template = "{{change_type}}(orchestrade):{% if show_message %} {{message}}{% endif %}"
+example = "feature: this feature enable customize through config file"
+schema = "<type>: <body>"
+schema_pattern = "(feat|fix|docs|style|refactor|perf|test|chore|ci|build|revert):(\\s.*)"
+bump_pattern = "^(BREAKING CHANGE|feat|fix|docs|style|refactor|perf|test|chore|build|revert)\\(orchestrade\\):\\s"
+change_type_order = ["BREAKING CHANGE", "feat", "fix", "refactor", "perf", "docs", "style", "test", "chore", "ci", "build", "revert"]
+commit_parser = "^(?P<change_type>feat|fix|docs|style|refactor|perf|test|chore|ci|build|revert)\\(orchestrade\\):\\s(?P<message>.*)?"
+changelog_pattern = "^(feat|fix|docs|style|refactor|perf|test|chore|ci|build|revert)\\(orchestrade\\)(!)?:"
+
+[tool.commitizen.customize.change_type_map]
+feat = "Feat"
+fix = "Fix"
+docs = "Docs"
+style = "Style"
+refactor = "Refactor"
+perf = "Perf"
+test = "Test"
+chore = "Chore"
+ci = "CI"
+build = "Build"
+revert = "Revert"
+
+[[tool.commitizen.customize.questions]]
+type = "list"
+name = "change_type"
+message = "Select the type of change you are committing"
+
+[[tool.commitizen.customize.questions.choices]]
+value = "feat"
+name = "feat: A new feature"
+
+[[tool.commitizen.customize.questions.choices]]
+value = "fix"
+name = "fix: A bug fix"
+
+[[tool.commitizen.customize.questions.choices]]
+value = "docs"
+name = "docs: Documentation only changes"
+
+[[tool.commitizen.customize.questions.choices]]
+value = "style"
+name = "style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)"
+
+[[tool.commitizen.customize.questions.choices]]
+value = "refactor"
+name = "refactor: A code change that neither fixes a bug nor adds a feature"
+
+[[tool.commitizen.customize.questions.choices]]
+value = "perf"
+name = "perf: A code change that improves performance"
+
+[[tool.commitizen.customize.questions.choices]]
+value = "test"
+name = "test: Adding missing or correcting existing tests"
+
+[[tool.commitizen.customize.questions.choices]]
+value = "chore"
+name = "chore: Changes to the build process or auxiliary tools and libraries such as documentation generation"
+
+[[tool.commitizen.customize.questions.choices]]
+value = "ci"
+name = "ci: Changes to CI configuration files and scripts"
+
+[[tool.commitizen.customize.questions.choices]]
+value = "build"
+name = "build: Changes that affect the build system or external dependencies"
+
+[[tool.commitizen.customize.questions.choices]]
+value = "revert"
+name = "revert: Reverts a previous commit"
+
+[[tool.commitizen.customize.questions.choices]]
+value = "BREAKING CHANGE"
+name = "BREAKING CHANGE: Introduces breaking changes"
+
+[[tool.commitizen.customize.questions]]
+type = "input"
+name = "message"
+message = "Type brief description of the change: "
+
+[[tool.commitizen.customize.questions]]
+type = "confirm"
+name = "show_message"
+message = "Do you want to add body message in commit?"
